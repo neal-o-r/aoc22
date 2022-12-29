@@ -1,22 +1,13 @@
-from utils import read_file
 
-
-def split_blocks(data):
-    splits = []
-    o = []
-    for d in data:
-        if d == "":
-            splits.append(o)
-            o = []
-        else:
-            o.append(int(d))
-
-    return splits
+def parse_data(data):
+    split_block = lambda s: list(map(int, s.split("\n")))
+    return [split_block(b) for b in data]
 
 
 if __name__ == "__main__":
-    data = read_file("./data/01.txt")
-    cals_per_elf = list(map(sum, split_blocks(data)))
+    data = parse_data(open("./data/01.txt").read().split("\n\n")[:-1])
+
+    cals_per_elf = list(map(sum, data))
 
     print(max(cals_per_elf))
 
